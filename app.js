@@ -1,7 +1,8 @@
+//skapar variabler
 const boxes = document.querySelectorAll(".box");
 const statusText = document.querySelector("#statusText");
 const restartBtn = document.querySelector("#restartBtn");
-//detta är för hur många lådor vi har i html, vi har 9 men index börjar med 0
+//detta är för hur många lådor vi har i html, vi har 9 stycken lådor
 const winConditions= [
     //row
     [0,1,2],
@@ -15,25 +16,28 @@ const winConditions= [
     [0,4,8],
     [2,4,6]
 ];
+//options är vår placeholder, 1 för varje låda
 let options = ["", "", "", "", "", "", "", "", ""];
+//första spelare är X
 let currentPlayer = "X";
-//initierar spelet
+//ändrar det till true när vi startar spelet
 let running = true;
-
+//initierar spelet
 initializeGame();
-
+//skapar en function för att starta spel 
 function initializeGame(){
-//för varje click på en låda så ropar den på boxclicked function
+//en event för att klicka på lådorna
 boxes.forEach(box=> box.addEventListener("click", boxClicked));
-//ropar på restartgame function
-restartBtn.addEventListener("click", restartGame);
-Ropar på currentplayer så att den skriver ut vilken av spelares tur det är
+//skapar en eventlistener så att användaren kan starta om spelet
+restartBtn.addEventListener("click", restartGame); 
+//skapar text innan spelet börjar för att berätta vem som ska starta
 statusText.textContent=`${currentPlayer}'s turn`;
 }
+//function för vilka lådor som klickades
 function boxClicked(){
-//hämtar vår attribute av cell index från html
-const boxIndex = this.getAttribute("cellIndex")
-//om vår array inte har något i den och om spelet inte körs så skrivs inget ut
+//hämtar attribute från html
+const boxIndex = this.getAttribute("cellIndex");
+//om options i index av cellindex inte är en tom plats eller inte körs då ger den tillbaks ingenting
 if(options[boxIndex]!= "" || !running){
     return;
 }
@@ -41,38 +45,37 @@ updateBox(this,boxIndex);
 checkWinner();
 }
 function updateBox(box, index){
-    //updaterar placeholder
+//updaterar placeholder
 options[index]=currentPlayer;
 box.textContent=currentPlayer;
 }
 function changePlayer(){
-    //ändrar spelare till o 
+    //ändrar spelare till O 
     currentPlayer=(currentPlayer=="X")?"O":"X";
     statusText.textContent=`${currentPlayer}'s turn`;
 }
 function checkWinner(){
-// skapar boolean för att avsluta spelet när någon förlorar
     let roundWon =false;
     for(let i = 0; i<winConditions.length; i++){
+        //sparar winConditions inom dessa variabler
         const condition = winConditions[i];
         const boxA = options[condition[0]]
         const boxB = options[condition[1]]
         const boxC = options[condition[2]]
+        //om dessa box är tomma då fortsätter spelet
         if(boxA== ""||boxB==""|| boxC==""){
             continue;
         }
+        //om dessa lådor är lika med varandra dvs att alla är stryckna över då har någon vunnit
         if(boxA == boxB && boxB == boxC){
             roundWon =true;
             break;
         }
     }
-//om en spelare vinner då blir vår running boolean falskt och spelaren får en text
     if(roundWon){
         statusText.textContent=`${currentPlayer} Wins`;
         running=false;
-    }
-//om det blir oavgjort så får man meddelandet och vår boolean blir falskt
-else if(!options.includes("")){
+    }else if(!options.includes("")){
         statusText.textContent="Draw!";
         running=false
     }else{
