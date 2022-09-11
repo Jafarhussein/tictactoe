@@ -72,16 +72,20 @@ function checkWinner(){
             break;
         }
     }
+    //om någon vinner så skriver den ut vilken spelare vinner
     if(roundWon){
         statusText.textContent=`${currentPlayer} Wins`;
         running=false;
-    }else if(!options.includes("")){
+    }
+    //om option array inte är tom dvs att alla lådor i spelet är påfylld och ingen har vunnit då blir det oavgjort
+    else if(!options.includes("")){
         statusText.textContent="Draw!";
         running=false
-    }else{
+    }else{//annars byter det bara spelare tills alla lådor är pfyllda
         changePlayer();
     }
 }
+//när man trycker på knappen så återställer allting till 0  
 function restartGame(){
 currentPlayer="X"
 options = ["", "", "", "", "", "", "", "", ""];
