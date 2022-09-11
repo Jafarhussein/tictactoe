@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 body{
+    /*lägger allting på column och centrera det*/
     width: 100%;
     height: 100%;
     display: flex;
@@ -13,20 +14,24 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 h1{
+    /*göra rubriken se lite bättre*/
     font-weight: 800;
     font-size: 50px;
     margin-top: 2rem;
 }
 .box{
+    /*designar lådorna*/
     border: 4px solid black;
     height: 15rem;
     width: 15rem;
+    /*lägger en curesr pointer så att det visar att lådorna är klickbara*/
     cursor: pointer;
     font-size: 100px;
     text-align: center;
     padding: 3rem;
 }
 .box1,.box2,.box3{
+    /*lägger alla lådor på kolumner*/
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -39,6 +44,7 @@ h1{
 #statusText{
     margin-top: 30px;
 }
+/*fixar knappen så att  den ser större och bättre*/
 #restartBtn{
     margin-top: 20px;
     width: 7rem;
