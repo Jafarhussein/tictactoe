@@ -31,7 +31,7 @@ h1{
     padding: 3rem;
 }
 .box1,.box2,.box3{
-    /*lägger alla lådor på kolumner*/
+    /*lägger alla lådor i 3 rader*/
    display: flex;
    flex-direction: row;
    align-items: center;
